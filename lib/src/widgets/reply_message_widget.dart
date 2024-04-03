@@ -20,6 +20,8 @@
  * SOFTWARE.
  */
 import 'package:audio_waveforms/audio_waveforms.dart';
+import 'package:chatview/markdown/markdown_builder.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chatview/src/extensions/extensions.dart';
@@ -55,8 +57,7 @@ class ReplyMessageWidget extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final replyMessage = message.replyMessage.message;
     final chatController = ChatViewInheritedWidget.of(context)?.chatController;
-    final messagedUser =
-        chatController?.getUserFromId(message.replyMessage.replyBy);
+    final messagedUser = chatController?.getUserFromId(message.replyMessage.replyTo); // 変更
     final replyBy = replyBySender ? PackageStrings.you : messagedUser?.name;
     return GestureDetector(
       onTap: onTap,
@@ -67,24 +68,19 @@ class ReplyMessageWidget extends StatelessWidget {
               left: horizontalPadding,
               bottom: 4,
             ),
-        constraints:
-            BoxConstraints(maxWidth: repliedMessageConfig?.maxWidth ?? 280),
+        constraints: BoxConstraints(maxWidth: repliedMessageConfig?.maxWidth ?? 280),
         child: Column(
-          crossAxisAlignment:
-              replyBySender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          crossAxisAlignment: replyBySender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             Text(
               "${PackageStrings.repliedBy} $replyBy",
               style: repliedMessageConfig?.replyTitleTextStyle ??
-                  textTheme.bodyMedium!
-                      .copyWith(fontSize: 14, letterSpacing: 0.3),
+                  textTheme.bodyMedium!.copyWith(fontSize: 14, letterSpacing: 0.3),
             ),
             const SizedBox(height: 6),
             IntrinsicHeight(
               child: Row(
-                mainAxisAlignment: replyBySender
-                    ? MainAxisAlignment.end
-                    : MainAxisAlignment.start,
+                mainAxisAlignment: replyBySender ? MainAxisAlignment.end : MainAxisAlignment.start,
                 children: [
                   if (!replyBySender)
                     VerticalLine(
@@ -97,20 +93,15 @@ class ReplyMessageWidget extends StatelessWidget {
                       opacity: repliedMessageConfig?.opacity ?? 0.8,
                       child: message.replyMessage.messageType.isImage
                           ? Container(
-                              height: repliedMessageConfig
-                                      ?.repliedImageMessageHeight ??
-                                  100,
-                              width: repliedMessageConfig
-                                      ?.repliedImageMessageWidth ??
-                                  80,
+                              height: repliedMessageConfig?.repliedImageMessageHeight ?? 100,
+                              width: repliedMessageConfig?.repliedImageMessageWidth ?? 80,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: NetworkImage(replyMessage),
                                   fit: BoxFit.fill,
                                 ),
                                 borderRadius:
-                                    repliedMessageConfig?.borderRadius ??
-                                        BorderRadius.circular(14),
+                                    repliedMessageConfig?.borderRadius ?? BorderRadius.circular(14),
                               ),
                             )
                           : Container(
@@ -127,8 +118,8 @@ class ReplyMessageWidget extends StatelessWidget {
                                   replyMessage: replyMessage,
                                   replyBySender: replyBySender,
                                 ),
-                                color: repliedMessageConfig?.backgroundColor ??
-                                    Colors.grey.shade500,
+                                color:
+                                    repliedMessageConfig?.backgroundColor ?? Colors.grey.shade500,
                               ),
                               child: message.replyMessage.messageType.isVoice
                                   ? Row(
@@ -136,29 +127,33 @@ class ReplyMessageWidget extends StatelessWidget {
                                       children: [
                                         Icon(
                                           Icons.mic,
-                                          color: repliedMessageConfig
-                                                  ?.micIconColor ??
-                                              Colors.white,
+                                          color: repliedMessageConfig?.micIconColor ?? Colors.white,
                                         ),
                                         const SizedBox(width: 2),
-                                        if (message.replyMessage
-                                                .voiceMessageDuration !=
-                                            null)
+                                        if (message.replyMessage.voiceMessageDuration != null)
                                           Text(
-                                            message.replyMessage
-                                                .voiceMessageDuration!
-                                                .toHHMMSS(),
-                                            style:
-                                                repliedMessageConfig?.textStyle,
+                                            message.replyMessage.voiceMessageDuration!.toHHMMSS(),
+                                            style: repliedMessageConfig?.textStyle,
                                           ),
                                       ],
                                     )
-                                  : Text(
-                                      replyMessage,
-                                      style: repliedMessageConfig?.textStyle ??
-                                          textTheme.bodyMedium!
-                                              .copyWith(color: Colors.black),
+                                  : Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        if (replyBySender) Text(messagedUser!.name),
+                                        MarkdownBuilder(
+                                          message: replyMessage,
+                                          pTextColor: Colors.white,
+                                          chatUsers: chatController?.chatUsers,
+                                        ),
+                                      ],
                                     ),
+                              // 上記に追加変更
+                              // Text(
+                              //     replyMessage,
+                              //     style: repliedMessageConfig?.textStyle ??
+                              //         textTheme.bodyMedium!.copyWith(color: Colors.black),
+                              //   ),
                             ),
                     ),
                   ),

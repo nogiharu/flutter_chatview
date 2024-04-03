@@ -20,6 +20,7 @@
  * SOFTWARE.
  */
 import 'package:audio_waveforms/audio_waveforms.dart';
+import 'package:chatview/chatview.dart';
 import 'package:chatview/src/values/enumaration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,6 +41,12 @@ class SendMessageConfiguration {
 
   /// Used to give color to title of reply pop-up.
   final Color? replyTitleColor;
+
+  /// 追加変更
+  bool? isSendReplyUpdateMessage;
+
+  /// 追加変更
+  VoidCallBack? closeReplyUpdateMessage;
 
   /// Used to give color to reply message.
   final Color? replyMessageColor;
@@ -71,7 +78,7 @@ class SendMessageConfiguration {
   /// Styling configuration for recorder widget.
   final VoiceRecordingConfiguration? voiceRecordingConfiguration;
 
-  const SendMessageConfiguration({
+  SendMessageConfiguration({
     this.textFieldConfig,
     this.textFieldBackgroundColor,
     this.imagePickerIconsConfig,
@@ -87,6 +94,8 @@ class SendMessageConfiguration {
     this.enableGalleryImagePicker = true,
     this.voiceRecordingConfiguration,
     this.micIconColor,
+    this.isSendReplyUpdateMessage = false, // 追加変更
+    this.closeReplyUpdateMessage, // 追加変更
   });
 }
 
@@ -189,7 +198,8 @@ class ImagePickerConfiguration {
 
   /// Callback when image is picked from camera or gallery,
   ///  we can perform our task on image like adding crop options and return new image path
-  final Future<String?> Function(String? path)? onImagePicked;
+  final Future<String?> Function(XFile? xFile)? onImagePicked; // 追加変更
+  // final Future<String?> Function(String? path)? onImagePicked;
 
   const ImagePickerConfiguration({
     this.maxWidth,

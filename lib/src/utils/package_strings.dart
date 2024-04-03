@@ -20,17 +20,25 @@
  * SOFTWARE.
  */
 class PackageStrings {
-  static const String today = "Today";
-  static const String yesterday = "Yesterday";
-  static const String repliedToYou = "Replied to you";
-  static const String repliedBy = "Replied by";
-  static const String more = "More";
-  static const String unsend = "Unsend";
-  static const String reply = "Reply";
-  static const String replyTo = "Replying to";
+  // static const String today = "Today"; 追加変更
+  static const String today = "今日";
+  // static const String yesterday = "Yesterday";　追加変更
+  static const String yesterday = "昨日";
+  // static const String repliedToYou = "Replied to you";　追加変更
+  static const String repliedToYou = "あなたにリプライ";
+  // static const String repliedBy = "Replied by"; 追加変更
+  static const String repliedBy = "リプライ";
+  // static const String more = "More";　追加変更
+  static const String more = "閉じる";
+  // static const String unsend = "Unsend"; 追加変更
+  static const String unsend = "編集";
+  // static const String reply = "Reply"; 追加変更
+  static const String reply = "リプライ";
+  // static const String replyTo = "Replying to"; 追加変更
+  static const String replyTo = "リプライ";
+  static const String updateTo = "編集"; // 追加変更
   static const String message = "Message";
-  static const String reactionPopupTitle =
-      "Tap and hold to multiply your reaction";
+  static const String reactionPopupTitle = "Tap and hold to multiply your reaction";
   static const String photo = "Photo";
   static const String send = "Send";
   static const String you = "You";
