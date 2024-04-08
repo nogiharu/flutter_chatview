@@ -58,8 +58,6 @@ class Message {
 
   DateTime? updatedAt; // 追加変更
 
-  List<String>? mentionUserIds; // 追加変更
-
   Message({
     this.id = '',
     required this.message,
@@ -72,7 +70,6 @@ class Message {
     MessageStatus status = MessageStatus.pending,
     this.chatRoomId, // 追加変更
     this.updatedAt, // 追加変更
-    this.mentionUserIds, // 追加変更
   })  : reaction = reaction ?? Reaction(reactions: [], reactedUserIds: []),
         key = GlobalKey(),
         _status = ValueNotifier(status),
