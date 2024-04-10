@@ -146,7 +146,7 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
           ),
         ]
         // 追加変更　START
-        else if (widget.message.isDeleted!)
+        else if (widget.message.isDeleted ?? false)
           Padding(
             padding: const EdgeInsets.all(15),
             child: Row(
