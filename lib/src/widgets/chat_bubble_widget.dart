@@ -144,7 +144,19 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
             position: widget.slideAnimation!,
             child: _chatBubbleWidget(messagedUser),
           ),
-        ] else
+        ]
+        // 追加変更　START
+        else if (widget.message.isDeleted!)
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Row(
+              mainAxisAlignment:
+                  isMessageBySender ? MainAxisAlignment.end : MainAxisAlignment.start,
+              children: [widget.messageConfig!.customMessageBuilder!(widget.message)],
+            ),
+          )
+        // 追加変更　END
+        else
           _chatBubbleWidget(messagedUser),
       ],
     );
