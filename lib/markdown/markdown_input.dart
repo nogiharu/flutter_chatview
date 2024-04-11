@@ -88,12 +88,6 @@ class _MarkdownInputState extends State<MarkdownInput> {
                 // アイコン一覧
                 Row(
                   children: [
-                    // FlutterMentions()
-                    iconButtonWidget(
-                      iconData: Icons.alternate_email_sharp,
-                      markdownText: '@',
-                      onPressed: mentionDropdownButton,
-                    ),
                     iconButtonWidget(iconData: Icons.code, markdownText: '`java`'),
                     iconButtonWidget(
                       iconData: Icons.source,
@@ -109,6 +103,11 @@ throw new NullPointerException("Hello, World");
                     iconButtonWidget(
                       iconData: Icons.link,
                       markdownText: '[文字](https://www.google.com)',
+                    ),
+                    iconButtonWidget(
+                      iconData: Icons.alternate_email_sharp,
+                      markdownText: '@',
+                      onPressed: mentionDropdownButton,
                     ),
                   ],
                 ),
