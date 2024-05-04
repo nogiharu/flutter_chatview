@@ -6,10 +6,13 @@ class AtMentionParagraphNode extends ElementNode {
   // final String text;
   final PConfig pConfig;
   final List<String> mentionIdList;
+  final String? currentUserId;
+
   AtMentionParagraphNode({
     // required this.text,
     required this.pConfig,
     required this.mentionIdList,
+    this.currentUserId,
   });
 
   /// @で始まり(直後が@で始まっていない)空白以外の文字が1回以上続き[スペースまたは改行の一文字]で終わる
@@ -54,14 +57,18 @@ class AtMentionParagraphNode extends ElementNode {
 
       textList.forEach((text) {
         bool isAtMention = text.startsWith(regex);
+        bool isCurrentUser = false;
         if (mentionIdList.isNotEmpty) {
-          isAtMention =
-              mentionIdList.any((id) => text.replaceAll('@', '').trim() == id) && isAtMention;
+          final userId = text.replaceAll('@', '').trim();
+          isAtMention = mentionIdList.any((id) => userId == id) && isAtMention;
+
+          isCurrentUser = userId == currentUserId;
         }
 
         final textStyle = pConfig.textStyle.copyWith(
           color: isAtMention ? Colors.blue : null,
           fontSize: isAtMention ? 13 : null,
+          backgroundColor: isAtMention && isCurrentUser ? Colors.amber.shade300 : null,
         );
 
         super.accept(

@@ -11,12 +11,13 @@ class MarkdownBuilder extends StatelessWidget {
   final String message;
   final Color? pTextColor;
   final List<ChatUser>? chatUsers;
-
+  final ChatUser? currenUser;
   const MarkdownBuilder({
     super.key,
     required this.message,
     this.pTextColor,
     this.chatUsers,
+    this.currenUser,
   });
 
   @override
@@ -80,6 +81,7 @@ class MarkdownBuilder extends StatelessWidget {
               return AtMentionParagraphNode(
                 pConfig: config.p,
                 mentionIdList: mentionIdList,
+                currentUserId: currenUser?.userId,
               );
             }),
       ]),
