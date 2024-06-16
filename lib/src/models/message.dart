@@ -25,7 +25,8 @@ import 'package:flutter/foundation.dart';
 
 class Message {
   /// Provides id
-  final String id;
+  // final String id;　追加変更
+  final String? id;
 
   /// Used for accessing widget's render box.
   final GlobalKey key;
@@ -61,7 +62,8 @@ class Message {
   bool? isDeleted; // 追加変更
 
   Message({
-    this.id = '',
+    // this.id = '',　追加変更
+    this.id,
     required this.message,
     required this.createdAt,
     required this.sendBy,

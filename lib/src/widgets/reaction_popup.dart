@@ -160,7 +160,7 @@ class ReactionPopupState extends State<ReactionPopup> with SingleTickerProviderS
             );
             chatController?.setReaction(
               emoji: emoji,
-              messageId: _message!.id,
+              messageId: _message!.id!,
               userId: currentUser!.id,
             );
           }

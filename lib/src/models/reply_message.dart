@@ -38,6 +38,9 @@ class ReplyMessage {
   /// Id of message, it replies to.
   final String messageId;
 
+  final DateTime? createdAt; // 追加変更
+  final DateTime? updatedAt; // 追加変更
+
   const ReplyMessage({
     this.messageId = '',
     this.message = '',
@@ -45,6 +48,8 @@ class ReplyMessage {
     this.replyBy = '',
     this.messageType = MessageType.text,
     this.voiceMessageDuration,
+    this.createdAt, // 追加変更
+    this.updatedAt, // 追加変更
   });
 
   factory ReplyMessage.fromJson(Map<String, dynamic> json) => ReplyMessage(

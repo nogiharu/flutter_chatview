@@ -337,7 +337,7 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
         replyBy: currentUser!.id,
         replyTo: message.sendBy,
         messageType: message.messageType,
-        messageId: message.id,
+        messageId: message.id!,
         voiceMessageDuration: message.voiceMessageDuration,
       );
     }
