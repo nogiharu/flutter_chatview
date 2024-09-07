@@ -188,7 +188,7 @@ throw new NullPointerException("Hello, World");
               children: [
                 TextSpan(text: chatUsers[index].name),
                 TextSpan(
-                  text: '@${chatUsers[index].userId}',
+                  text: '@${chatUsers[index].mentionId}',
                   style: const TextStyle(color: Colors.blue, fontSize: 13),
                 )
               ],
@@ -201,7 +201,7 @@ throw new NullPointerException("Hello, World");
 
     if (selectedChatUser != null) {
       final text = widget.textEditingController.text;
-      final toMentionName = '${selectedChatUser.name}@${selectedChatUser.userId}';
+      final toMentionName = '${selectedChatUser.name}@${selectedChatUser.mentionId}';
       widget.textEditingController.text += '${text.isEmpty ? '' : ' '}$toMentionName \n';
     }
   }

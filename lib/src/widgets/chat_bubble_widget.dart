@@ -311,7 +311,7 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
                       style: widget.chatBubbleConfig?.inComingChatBubbleConfig?.senderNameTextStyle,
                     ),
                     TextSpan(
-                      text: '@${messagedUser?.userId ?? ''}',
+                      text: '@${messagedUser?.mentionId ?? ''}',
                       style: const TextStyle(color: Colors.blue, fontSize: 13),
                     )
                   ],
@@ -323,7 +323,7 @@ class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
             onTap: () {
               final controller = ChatViewInheritedWidget.of(context)?.textEditingController;
               if (controller == null) return;
-              final nameId = '${messagedUser?.name}@${messagedUser?.userId}';
+              final nameId = '${messagedUser?.name}@${messagedUser?.mentionId}';
               controller.text += '${controller.text.isEmpty ? '' : ' '}$nameId \n';
             },
             // 追加変更　END

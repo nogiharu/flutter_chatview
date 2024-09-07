@@ -64,7 +64,7 @@ class MarkdownBuilder extends StatelessWidget {
 
     List<String> mentionIdList = [];
     if (chatUsers != null) {
-      mentionIdList = List.generate(chatUsers!.length, (index) => chatUsers![index].userId!);
+      mentionIdList = List.generate(chatUsers!.length, (index) => chatUsers![index].mentionId!);
     }
 
     return MarkdownBlock(
@@ -81,7 +81,7 @@ class MarkdownBuilder extends StatelessWidget {
               return AtMentionParagraphNode(
                 pConfig: config.p,
                 mentionIdList: mentionIdList,
-                currentUserId: currenUser?.userId,
+                currentUserId: currenUser?.mentionId,
               );
             }),
       ]),
