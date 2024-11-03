@@ -21,7 +21,6 @@
  */
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:chatview/markdown/markdown_builder.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chatview/src/extensions/extensions.dart';

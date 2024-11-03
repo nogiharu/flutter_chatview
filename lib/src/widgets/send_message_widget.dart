@@ -31,7 +31,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 import '../utils/constants/constants.dart';
-import 'package:chatview/markdown/at_mention_paragraph_node.dart'; // 追加変更
+// 追加変更
 
 class SendMessageWidget extends StatefulWidget {
   const SendMessageWidget({

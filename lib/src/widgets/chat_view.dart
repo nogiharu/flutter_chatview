@@ -25,7 +25,6 @@ import 'package:chatview/src/widgets/chat_view_inherited_widget.dart';
 import 'package:chatview/src/widgets/chatview_state_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart';
-import '../values/custom_time_messages.dart';
 import 'send_message_widget.dart';
 
 class ChatView extends StatefulWidget {

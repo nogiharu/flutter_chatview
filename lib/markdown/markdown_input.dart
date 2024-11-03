@@ -1,7 +1,6 @@
 import 'package:chatview/chatview.dart';
 import 'package:chatview/markdown/markdown_builder.dart';
 import 'package:chatview/src/widgets/chat_view_inherited_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MarkdownInput extends StatefulWidget {
