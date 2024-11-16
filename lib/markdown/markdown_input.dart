@@ -114,7 +114,7 @@ throw new NullPointerException("Hello, World");
           ),
         ),
         if (isInput)
-          widget.child
+          SafeArea(child: widget.child)
         else
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5).copyWith(right: 10, left: 10),
