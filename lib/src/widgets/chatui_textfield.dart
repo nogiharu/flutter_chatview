@@ -175,53 +175,41 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
                   )
                 else
                   Expanded(
-                    // TextField -> TextFormField 追加変更
-                    child: KeyboardVisibilityBuilder(
-                      // 追加変更 キーボード押し上げ問題
-                      builder: (context, isKeyboardVisible) {
-                        if (!isKeyboardVisible || MediaQuery.of(context).viewInsets.bottom > 0) {
-                          // 追加変更 キーボード押し上げ問題
-                          FocusScope.of(context).unfocus();
-                          setState(() {});
-                        }
-
-                        return TextFormField(
-                          scrollPhysics: const AlwaysScrollableScrollPhysics(), // 追加変更
-                          focusNode: widget.focusNode,
-                          controller: widget.textEditingController,
-                          style: textFieldConfig?.textStyle ?? const TextStyle(color: Colors.white),
-                          maxLines: textFieldConfig?.maxLines ?? 5,
-                          minLines: textFieldConfig?.minLines ?? 1,
-                          keyboardType: textFieldConfig?.textInputType,
-                          inputFormatters: textFieldConfig?.inputFormatters,
-                          onChanged: _onChanged,
-                          textCapitalization:
-                              textFieldConfig?.textCapitalization ?? TextCapitalization.sentences,
-                          decoration: InputDecoration(
-                            hintText: textFieldConfig?.hintText ?? PackageStrings.message,
-                            fillColor: sendMessageConfig?.textFieldBackgroundColor ?? Colors.white,
-                            filled: true,
-                            hintStyle: textFieldConfig?.hintStyle ??
-                                TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey.shade600,
-                                  letterSpacing: 0.25,
-                                ),
-                            contentPadding: textFieldConfig?.contentPadding ??
-                                const EdgeInsets.symmetric(horizontal: 6),
-                            border: _outLineBorder,
-                            focusedBorder: _outLineBorder,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.transparent),
-                              borderRadius: textFieldConfig?.borderRadius ??
-                                  BorderRadius.circular(textFieldBorderRadius),
-                            ),
+                      // TextField -> TextFormField 追加変更
+                      child: TextFormField(
+                    scrollPhysics: const AlwaysScrollableScrollPhysics(), // 追加変更
+                    focusNode: widget.focusNode,
+                    controller: widget.textEditingController,
+                    style: textFieldConfig?.textStyle ?? const TextStyle(color: Colors.white),
+                    maxLines: textFieldConfig?.maxLines ?? 5,
+                    minLines: textFieldConfig?.minLines ?? 1,
+                    keyboardType: textFieldConfig?.textInputType,
+                    inputFormatters: textFieldConfig?.inputFormatters,
+                    onChanged: _onChanged,
+                    textCapitalization:
+                        textFieldConfig?.textCapitalization ?? TextCapitalization.sentences,
+                    decoration: InputDecoration(
+                      hintText: textFieldConfig?.hintText ?? PackageStrings.message,
+                      fillColor: sendMessageConfig?.textFieldBackgroundColor ?? Colors.white,
+                      filled: true,
+                      hintStyle: textFieldConfig?.hintStyle ??
+                          TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey.shade600,
+                            letterSpacing: 0.25,
                           ),
-                        );
-                      },
+                      contentPadding: textFieldConfig?.contentPadding ??
+                          const EdgeInsets.symmetric(horizontal: 6),
+                      border: _outLineBorder,
+                      focusedBorder: _outLineBorder,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.transparent),
+                        borderRadius: textFieldConfig?.borderRadius ??
+                            BorderRadius.circular(textFieldBorderRadius),
+                      ),
                     ),
-                  ),
+                  )),
                 ValueListenableBuilder<String>(
                   valueListenable: _inputText,
                   builder: (_, inputTextValue, child) {
