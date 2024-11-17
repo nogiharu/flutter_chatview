@@ -365,7 +365,7 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
   @override
   void dispose() {
     // _textEditingController.dispose();
-    // _focusNode.dispose();　追加変更
+    _focusNode.dispose();
     _replyMessage.dispose();
     super.dispose();
   }

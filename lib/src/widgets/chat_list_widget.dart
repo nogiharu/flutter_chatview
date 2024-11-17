@@ -299,6 +299,7 @@ class _ChatListWidgetState extends State<ChatListWidget> with SingleTickerProvid
     if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
       FocusScope.of(context).unfocus();
     }
+    FocusScope.of(context).unfocus(); // 追加変更
     showPopUp.value = false;
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
   }
