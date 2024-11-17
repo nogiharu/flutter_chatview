@@ -32,6 +32,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../chatview.dart';
 import '../utils/debounce.dart';
 import '../utils/package_strings.dart';
+import 'dart:html' as html;
 
 class ChatUITextField extends StatefulWidget {
   const ChatUITextField({
@@ -106,6 +107,15 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
     //     defaultTargetPlatform == TargetPlatform.android) {
     //   controller = RecorderController();
     // }
+
+    // 追加変更 キーボード押し上げ問題
+    widget.focusNode.addListener(() {
+      if (!widget.focusNode.hasFocus) return;
+      final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
+      if (bottomSpace > 0) {
+        widget.focusNode.unfocus();
+      }
+    });
   }
 
   @override
@@ -164,6 +174,14 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
                   Expanded(
                     // TextField -> TextFormField 追加変更
                     child: TextFormField(
+                      // onEditingComplete: () {
+                      //   final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
+                      //   if (bottomSpace > 0) {
+                      //     widget.focusNode.unfocus();
+                      //     FocusScope.of(context).unfocus(); // キーボードを閉じる
+                      //     html.document.activeElement?.blur();
+                      //   }
+                      // }, // 追加変更 キーボード押し上げ問題
                       scrollPhysics: const AlwaysScrollableScrollPhysics(), // 追加変更
                       focusNode: widget.focusNode,
                       controller: widget.textEditingController,
