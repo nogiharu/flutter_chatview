@@ -27,12 +27,12 @@ import 'package:chatview/markdown/markdown_input.dart';
 import 'package:chatview/src/utils/constants/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart'; // 追加変更 キーボード押し上げ問題
 import 'package:image_picker/image_picker.dart';
 
 import '../../chatview.dart';
 import '../utils/debounce.dart';
 import '../utils/package_strings.dart';
-import 'dart:html' as html;
 
 class ChatUITextField extends StatefulWidget {
   const ChatUITextField({
@@ -109,16 +109,16 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
     // }
 
     // 追加変更 キーボード押し上げ問題
-    widget.focusNode.addListener(() {
-      if (!widget.focusNode.hasFocus || !(primaryFocus?.hasFocus ?? false)) return;
-      final bottomSpace = MediaQuery.of(context).viewInsets.vertical;
+    // widget.focusNode.addListener(() {
+    //   if (!widget.focusNode.hasFocus || !(primaryFocus?.hasFocus ?? false)) return;
+    //   final bottomSpace = MediaQuery.of(context).viewInsets.vertical;
 
-      if (bottomSpace > 0) {
-        widget.focusNode.unfocus();
-        primaryFocus?.unfocus();
-        setState(() {});
-      }
-    });
+    //   if (bottomSpace > 0) {
+    //     widget.focusNode.unfocus();
+    //     primaryFocus?.unfocus();
+    //     setState(() {});
+    //   }
+    // });
   }
 
   @override
@@ -176,48 +176,48 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
                 else
                   Expanded(
                     // TextField -> TextFormField 追加変更
-                    child: TextFormField(
-                      autofocus: MediaQuery.of(context).viewInsets.vertical > 0,
-                      // onEditingComplete: () {
-                      //   final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
-                      //   if (bottomSpace > 0) {
-                      //     widget.focusNode.unfocus();
-                      //     FocusScope.of(context).unfocus(); // キーボードを閉じる
-                      //     html.document.activeElement?.blur();
-                      //   }
-                      // }, // 追加変更 キーボード押し上げ問題
-                      scrollPhysics: const AlwaysScrollableScrollPhysics(), // 追加変更
-                      focusNode: widget.focusNode,
-                      controller: widget.textEditingController,
-                      style: textFieldConfig?.textStyle ?? const TextStyle(color: Colors.white),
-                      maxLines: textFieldConfig?.maxLines ?? 5,
-                      minLines: textFieldConfig?.minLines ?? 1,
-                      keyboardType: textFieldConfig?.textInputType,
-                      inputFormatters: textFieldConfig?.inputFormatters,
-                      onChanged: _onChanged,
-                      textCapitalization:
-                          textFieldConfig?.textCapitalization ?? TextCapitalization.sentences,
-                      decoration: InputDecoration(
-                        hintText: textFieldConfig?.hintText ?? PackageStrings.message,
-                        fillColor: sendMessageConfig?.textFieldBackgroundColor ?? Colors.white,
-                        filled: true,
-                        hintStyle: textFieldConfig?.hintStyle ??
-                            TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.grey.shade600,
-                              letterSpacing: 0.25,
+                    child: KeyboardVisibilityBuilder(
+                      // 追加変更 キーボード押し上げ問題
+                      builder: (context, isKeyboardVisible) {
+                        if (isKeyboardVisible) {
+                          widget.focusNode.unfocus(); // 追加変更 キーボード押し上げ問題
+                        }
+
+                        return TextFormField(
+                          scrollPhysics: const AlwaysScrollableScrollPhysics(), // 追加変更
+                          focusNode: widget.focusNode,
+                          controller: widget.textEditingController,
+                          style: textFieldConfig?.textStyle ?? const TextStyle(color: Colors.white),
+                          maxLines: textFieldConfig?.maxLines ?? 5,
+                          minLines: textFieldConfig?.minLines ?? 1,
+                          keyboardType: textFieldConfig?.textInputType,
+                          inputFormatters: textFieldConfig?.inputFormatters,
+                          onChanged: _onChanged,
+                          textCapitalization:
+                              textFieldConfig?.textCapitalization ?? TextCapitalization.sentences,
+                          decoration: InputDecoration(
+                            hintText: textFieldConfig?.hintText ?? PackageStrings.message,
+                            fillColor: sendMessageConfig?.textFieldBackgroundColor ?? Colors.white,
+                            filled: true,
+                            hintStyle: textFieldConfig?.hintStyle ??
+                                TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey.shade600,
+                                  letterSpacing: 0.25,
+                                ),
+                            contentPadding: textFieldConfig?.contentPadding ??
+                                const EdgeInsets.symmetric(horizontal: 6),
+                            border: _outLineBorder,
+                            focusedBorder: _outLineBorder,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.transparent),
+                              borderRadius: textFieldConfig?.borderRadius ??
+                                  BorderRadius.circular(textFieldBorderRadius),
                             ),
-                        contentPadding: textFieldConfig?.contentPadding ??
-                            const EdgeInsets.symmetric(horizontal: 6),
-                        border: _outLineBorder,
-                        focusedBorder: _outLineBorder,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.transparent),
-                          borderRadius: textFieldConfig?.borderRadius ??
-                              BorderRadius.circular(textFieldBorderRadius),
-                        ),
-                      ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ValueListenableBuilder<String>(
