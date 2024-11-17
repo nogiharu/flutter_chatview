@@ -116,6 +116,7 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
       if (bottomSpace > 0) {
         widget.focusNode.unfocus();
         primaryFocus?.unfocus();
+        setState(() {});
       }
     });
   }
@@ -176,6 +177,7 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
                   Expanded(
                     // TextField -> TextFormField 追加変更
                     child: TextFormField(
+                      autofocus: MediaQuery.of(context).viewInsets.vertical > 0,
                       // onEditingComplete: () {
                       //   final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
                       //   if (bottomSpace > 0) {
