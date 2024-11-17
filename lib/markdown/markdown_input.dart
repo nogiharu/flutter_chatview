@@ -39,6 +39,8 @@ class _MarkdownInputState extends State<MarkdownInput> {
 
   @override
   Widget build(BuildContext context) {
+    final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
+
     // コンストラクタのリレーになるため　TODO どうすればいいか
     final chatController = ChatViewInheritedWidget.of(context)?.chatController;
     final currentUser = ChatViewInheritedWidget.of(context)?.currentUser;
@@ -114,7 +116,13 @@ throw new NullPointerException("Hello, World");
           ),
         ),
         if (isInput)
-          SafeArea(child: widget.child)
+          SingleChildScrollView(
+            reverse: true,
+            child: Container(
+              margin: EdgeInsets.only(bottom: bottomSpace),
+              child: widget.child,
+            ),
+          )
         else
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5).copyWith(right: 10, left: 10),
