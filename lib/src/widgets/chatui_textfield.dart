@@ -110,10 +110,12 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
 
     // 追加変更 キーボード押し上げ問題
     widget.focusNode.addListener(() {
-      if (!widget.focusNode.hasFocus) return;
-      final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
+      if (!widget.focusNode.hasFocus || !(primaryFocus?.hasFocus ?? false)) return;
+      final bottomSpace = MediaQuery.of(context).viewInsets.vertical;
+
       if (bottomSpace > 0) {
         widget.focusNode.unfocus();
+        primaryFocus?.unfocus();
       }
     });
   }
