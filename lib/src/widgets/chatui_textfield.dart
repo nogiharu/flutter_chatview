@@ -179,8 +179,9 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
                     child: KeyboardVisibilityBuilder(
                       // 追加変更 キーボード押し上げ問題
                       builder: (context, isKeyboardVisible) {
-                        if (isKeyboardVisible) {
-                          widget.focusNode.unfocus(); // 追加変更 キーボード押し上げ問題
+                        if (isKeyboardVisible || MediaQuery.of(context).viewInsets.vertical > 0) {
+                          // 追加変更 キーボード押し上げ問題
+                          FocusScope.of(context).unfocus();
                         }
 
                         return TextFormField(
