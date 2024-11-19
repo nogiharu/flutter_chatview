@@ -27,7 +27,7 @@ import 'package:chatview/markdown/markdown_input.dart';
 import 'package:chatview/src/utils/constants/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart'; // 追加変更 キーボード押し上げ問題
+// 追加変更 キーボード押し上げ問題
 import 'package:image_picker/image_picker.dart';
 
 import '../../chatview.dart';

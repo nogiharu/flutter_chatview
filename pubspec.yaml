@@ -32,7 +32,6 @@ dependencies:
   # For formatting time locale in message receipts
   timeago: ^3.4.0
   markdown_widget: ^2.3.2+3 # 追加
-  flutter_keyboard_visibility: ^6.0.0
 
 dev_dependencies:
   flutter_test:
