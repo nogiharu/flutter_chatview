@@ -67,7 +67,6 @@ class AtMentionParagraphNode extends ElementNode {
 
         final textStyle = pConfig.textStyle.copyWith(
           color: isAtMention ? Colors.blue : null,
-          fontSize: isAtMention ? 13 : null,
           backgroundColor: isAtMention && isCurrentUser ? Colors.amber.shade300 : null,
         );
 

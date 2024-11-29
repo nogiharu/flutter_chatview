@@ -37,30 +37,29 @@ class MarkdownBuilder extends StatelessWidget {
 
     final markdownConfig = isDark ? MarkdownConfig.darkConfig : MarkdownConfig.defaultConfig;
 
-    const textStyle = TextStyle(fontSize: kIsWeb ? null : 10);
+    final preTextStyle = TextStyle(fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize);
 
+    // 「```aaaaa```」のテキスト
     final preConfig = isDark
         ? PreConfig.darkConfig.copy(
-            textStyle: textStyle,
-            styleNotMatched: textStyle.copyWith(color: Colors.white),
+            textStyle: preTextStyle,
+            styleNotMatched: preTextStyle.copyWith(color: Colors.white),
             wrapper: (child, code, language) => CodeWrapperWidget(child, code, language),
           )
         : const PreConfig().copy(
-            textStyle: textStyle,
-            styleNotMatched: textStyle,
+            textStyle: preTextStyle,
+            styleNotMatched: preTextStyle,
             wrapper: (child, code, language) => CodeWrapperWidget(child, code, language),
           );
 
-    double? mobileFontSize; // FIXME共通化したい
-    if (kIsWeb) mobileFontSize = MediaQuery.of(context).size.width < 400 ? 13 : 16;
+    // 普通のテキスト文字
     final pConfig = PConfig(
         textStyle: TextStyle(
       color: pTextColor,
-      // fontSize: mobileFontSize,
-      fontSize: 16,
     ));
 
-    final codeConfig = CodeConfig(style: const CodeConfig().style.copyWith(fontSize: 16));
+    // `文字`の方
+    final codeConfig = CodeConfig(style: const CodeConfig().style.copyWith(fontSize: 30));
 
     List<String> mentionIdList = [];
     if (chatUsers != null) {
@@ -72,7 +71,7 @@ class MarkdownBuilder extends StatelessWidget {
       config: markdownConfig.copy(configs: [
         preConfig,
         pConfig,
-        codeConfig,
+        // codeConfig,
       ]),
       generator: MarkdownGenerator(generators: [
         SpanNodeGeneratorWithTag(

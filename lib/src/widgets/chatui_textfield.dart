@@ -141,6 +141,7 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
           valueListenable: isRecording,
           builder: (_, isRecordingValue, child) {
             return Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 if (isRecordingValue && controller != null && !kIsWeb)
                   AudioWaveforms(
@@ -164,37 +165,43 @@ class _ChatUITextFieldState extends State<ChatUITextField> {
                 else
                   Expanded(
                       // TextField -> TextFormField 追加変更
-                      child: TextFormField(
-                    scrollPhysics: const AlwaysScrollableScrollPhysics(), // 追加変更
-                    focusNode: widget.focusNode,
-                    controller: widget.textEditingController,
-                    style: textFieldConfig?.textStyle ?? const TextStyle(color: Colors.white),
-                    maxLines: textFieldConfig?.maxLines ?? 5,
-                    minLines: textFieldConfig?.minLines ?? 1,
-                    keyboardType: textFieldConfig?.textInputType,
-                    inputFormatters: textFieldConfig?.inputFormatters,
-                    onChanged: _onChanged,
-                    textCapitalization:
-                        textFieldConfig?.textCapitalization ?? TextCapitalization.sentences,
-                    decoration: InputDecoration(
-                      hintText: textFieldConfig?.hintText ?? PackageStrings.message,
-                      fillColor: sendMessageConfig?.textFieldBackgroundColor ?? Colors.white,
-                      filled: true,
-                      hintStyle: textFieldConfig?.hintStyle ??
-                          TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey.shade600,
-                            letterSpacing: 0.25,
-                          ),
-                      contentPadding: textFieldConfig?.contentPadding ??
-                          const EdgeInsets.symmetric(horizontal: 6),
-                      border: _outLineBorder,
-                      focusedBorder: _outLineBorder,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.transparent),
-                        borderRadius: textFieldConfig?.borderRadius ??
-                            BorderRadius.circular(textFieldBorderRadius),
+                      child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      // 入力欄の改行の高さ
+                      maxHeight: MediaQuery.of(context).size.width < 400 ? 300 : 500, // 高さの上限を設定
+                    ),
+                    child: TextFormField(
+                      scrollPhysics: const AlwaysScrollableScrollPhysics(), // 追加変更
+                      focusNode: widget.focusNode,
+                      controller: widget.textEditingController,
+                      style: textFieldConfig?.textStyle ?? const TextStyle(color: Colors.white),
+                      maxLines: textFieldConfig?.maxLines ?? 5,
+                      minLines: textFieldConfig?.minLines ?? 1,
+                      keyboardType: textFieldConfig?.textInputType,
+                      inputFormatters: textFieldConfig?.inputFormatters,
+                      onChanged: _onChanged,
+                      textCapitalization:
+                          textFieldConfig?.textCapitalization ?? TextCapitalization.sentences,
+                      decoration: InputDecoration(
+                        hintText: textFieldConfig?.hintText ?? PackageStrings.message,
+                        fillColor: sendMessageConfig?.textFieldBackgroundColor ?? Colors.white,
+                        filled: true,
+                        hintStyle: textFieldConfig?.hintStyle ??
+                            TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.grey.shade600,
+                              letterSpacing: 0.25,
+                            ),
+                        contentPadding: textFieldConfig?.contentPadding ??
+                            const EdgeInsets.symmetric(horizontal: 6),
+                        border: _outLineBorder,
+                        focusedBorder: _outLineBorder,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.transparent),
+                          borderRadius: textFieldConfig?.borderRadius ??
+                              BorderRadius.circular(textFieldBorderRadius),
+                        ),
                       ),
                     ),
                   )),
