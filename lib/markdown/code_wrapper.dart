@@ -19,7 +19,7 @@ class _PreWrapperState extends State<CodeWrapperWidget> {
   @override
   void initState() {
     super.initState();
-    _switchWidget = Icon(Icons.copy_rounded, key: UniqueKey());
+    _switchWidget = Icon(Icons.copy_rounded, key: UniqueKey(), color: Colors.white);
   }
 
   @override
@@ -56,8 +56,8 @@ class _PreWrapperState extends State<CodeWrapperWidget> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
                               border: Border.all(
-                                  width: 0.5, color: isDark ? Colors.white : Colors.black)),
-                          child: Text(widget.language),
+                                  width: 0.5, color: !isDark ? Colors.white : Colors.black)),
+                          child: Text(widget.language, style: const TextStyle(color: Colors.white)),
                         )),
                       InkWell(
                         child: AnimatedSwitcher(
@@ -67,11 +67,12 @@ class _PreWrapperState extends State<CodeWrapperWidget> {
                         onTap: () async {
                           if (hasCopied) return;
                           await Clipboard.setData(ClipboardData(text: widget.text));
-                          _switchWidget = Icon(Icons.check, key: UniqueKey());
+                          _switchWidget = Icon(Icons.check, key: UniqueKey(), color: Colors.white);
                           refresh();
                           Future.delayed(const Duration(seconds: 2), () {
                             hasCopied = false;
-                            _switchWidget = Icon(Icons.copy_rounded, key: UniqueKey());
+                            _switchWidget =
+                                Icon(Icons.copy_rounded, key: UniqueKey(), color: Colors.white);
                             refresh();
                           });
                         },

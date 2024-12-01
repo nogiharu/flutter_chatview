@@ -40,7 +40,7 @@ class MarkdownBuilder extends StatelessWidget {
     final textStyle = TextStyle(fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize);
 
     // 「```aaaaa```」のテキスト
-    final preConfig = isDark
+    final preConfig = !isDark
         ? PreConfig.darkConfig.copy(
             textStyle: textStyle,
             styleNotMatched: textStyle.copyWith(color: Colors.white),
