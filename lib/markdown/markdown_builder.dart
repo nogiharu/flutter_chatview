@@ -37,29 +37,27 @@ class MarkdownBuilder extends StatelessWidget {
 
     final markdownConfig = isDark ? MarkdownConfig.darkConfig : MarkdownConfig.defaultConfig;
 
-    final preTextStyle = TextStyle(fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize);
+    final textStyle = TextStyle(fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize);
 
     // 「```aaaaa```」のテキスト
     final preConfig = isDark
         ? PreConfig.darkConfig.copy(
-            textStyle: preTextStyle,
-            styleNotMatched: preTextStyle.copyWith(color: Colors.white),
+            textStyle: textStyle,
+            styleNotMatched: textStyle.copyWith(color: Colors.white),
             wrapper: (child, code, language) => CodeWrapperWidget(child, code, language),
           )
         : const PreConfig().copy(
-            textStyle: preTextStyle,
-            styleNotMatched: preTextStyle,
+            textStyle: textStyle,
+            styleNotMatched: textStyle,
             wrapper: (child, code, language) => CodeWrapperWidget(child, code, language),
           );
 
     // 普通のテキスト文字
-    final pConfig = PConfig(
-        textStyle: TextStyle(
-      color: pTextColor,
-    ));
+    final pConfig = PConfig(textStyle: textStyle.copyWith(color: pTextColor));
 
     // `文字`の方
-    final codeConfig = CodeConfig(style: const CodeConfig().style.copyWith(fontSize: 30));
+    final codeConfig = CodeConfig(
+        style: textStyle.copyWith(backgroundColor: const CodeConfig().style.backgroundColor));
 
     List<String> mentionIdList = [];
     if (chatUsers != null) {
@@ -68,11 +66,13 @@ class MarkdownBuilder extends StatelessWidget {
 
     return MarkdownBlock(
       data: replacedMessage,
-      config: markdownConfig.copy(configs: [
-        preConfig,
-        pConfig,
-        // codeConfig,
-      ]),
+      config: markdownConfig.copy(
+        configs: [
+          preConfig,
+          pConfig,
+          codeConfig,
+        ],
+      ),
       generator: MarkdownGenerator(generators: [
         SpanNodeGeneratorWithTag(
             tag: MarkdownTag.p.name,

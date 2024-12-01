@@ -142,7 +142,7 @@ throw new NullPointerException("Hello, World");
         onPressed: onPressed,
         child: Text(
           text,
-          style: const TextStyle(color: Colors.black, fontSize: 13),
+          style: const TextStyle(color: Colors.black),
         ),
       ),
     );
@@ -190,7 +190,7 @@ throw new NullPointerException("Hello, World");
                 TextSpan(text: chatUsers[index].name),
                 TextSpan(
                   text: '@${chatUsers[index].mentionId}',
-                  style: const TextStyle(color: Colors.blue, fontSize: 13),
+                  style: const TextStyle(color: Colors.blue),
                 )
               ],
             ),
