@@ -29,9 +29,9 @@ class PackageStrings {
   // static const String repliedBy = "Replied by"; 追加変更
   static const String repliedBy = "リプライ";
   // static const String more = "More";　追加変更
-  static const String more = "削除";
+  static const String delete = "削除";
   // static const String unsend = "Unsend"; 追加変更
-  static const String unsend = "編集";
+  static const String copy = "コピー";
   // static const String reply = "Reply"; 追加変更
   static const String reply = "リプライ";
   // static const String replyTo = "Replying to"; 追加変更

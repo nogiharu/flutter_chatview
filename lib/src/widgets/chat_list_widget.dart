@@ -256,23 +256,23 @@ class _ChatListWidgetState extends State<ChatListWidget> with SingleTickerProvid
                 : ReplyPopupWidget(
                     buttonTextStyle: replyPopup?.buttonTextStyle,
                     topBorderColor: replyPopup?.topBorderColor,
-                    onMoreTap: () {
+                    onDeleteTap: () {
                       _onChatListTap();
-                      if (replyPopup?.onMoreTap != null) {
+                      if (replyPopup?.onDeleteTap != null) {
                         // replyPopup?.onMoreTap!();
-                        replyPopup?.onMoreTap!(message); // 追加変更
+                        replyPopup?.onDeleteTap!(message); // 追加変更
                       }
                     },
-                    onReportTap: () {
+                    onCopyTap: () {
                       _onChatListTap();
-                      if (replyPopup?.onReportTap != null) {
-                        replyPopup?.onReportTap!();
+                      if (replyPopup?.onCopyTap != null) {
+                        replyPopup?.onCopyTap!(message);
                       }
                     },
-                    onUnsendTap: () {
+                    onUpdateTap: () {
                       _onChatListTap();
-                      if (replyPopup?.onUnsendTap != null) {
-                        replyPopup?.onUnsendTap!(message);
+                      if (replyPopup?.onUpdateTap != null) {
+                        replyPopup?.onUpdateTap!(message);
                         widget.assignReplyMessage(message); // 追加変更
                       }
                     },

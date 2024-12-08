@@ -84,6 +84,7 @@ class MarkdownBuilder extends StatelessWidget {
               );
             }),
       ]),
+      selectable: MediaQuery.of(context).size.width > 400, // 選択させない
     );
   }
 }

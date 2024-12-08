@@ -32,17 +32,17 @@ class ReplyPopupConfiguration {
   final Widget Function(Message message, bool sendByCurrentUser)? replyPopupBuilder;
 
   /// Provides callback on unSend button.
-  final MessageCallBack? onUnsendTap;
+  final MessageCallBack? onUpdateTap; // 追加変更
 
   /// Provides callback on onReply button.
   final MessageCallBack? onReplyTap;
 
   /// Provides callback on onReport button.
-  final VoidCallBack? onReportTap;
+  final MessageCallBack? onCopyTap; // 追加変更
 
   /// Provides callback on onMore button.
   // final VoidCallBack? onMoreTap;
-  final MessageCallBack? onMoreTap; // 追加変更
+  final MessageCallBack? onDeleteTap; // 追加変更
 
   /// Used to give text style of button text.
   final TextStyle? buttonTextStyle;
@@ -53,10 +53,10 @@ class ReplyPopupConfiguration {
   const ReplyPopupConfiguration({
     this.buttonTextStyle,
     this.topBorderColor,
-    this.onUnsendTap,
+    this.onUpdateTap,
     this.onReplyTap,
-    this.onReportTap,
-    this.onMoreTap,
+    this.onCopyTap,
+    this.onDeleteTap,
     this.backgroundColor,
     this.replyPopupBuilder,
   });

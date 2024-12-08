@@ -29,10 +29,10 @@ class ReplyPopupWidget extends StatelessWidget {
   const ReplyPopupWidget({
     Key? key,
     required this.sendByCurrentUser,
-    required this.onUnsendTap,
+    required this.onUpdateTap,
     required this.onReplyTap,
-    required this.onReportTap,
-    required this.onMoreTap,
+    required this.onCopyTap,
+    required this.onDeleteTap,
     this.buttonTextStyle,
     this.topBorderColor,
   }) : super(key: key);
@@ -41,16 +41,16 @@ class ReplyPopupWidget extends StatelessWidget {
   final bool sendByCurrentUser;
 
   /// Provides call back when user tap on unsend button.
-  final VoidCallBack onUnsendTap;
+  final VoidCallBack onUpdateTap;
 
   /// Provides call back when user tap on reply button.
   final VoidCallBack onReplyTap;
 
   /// Provides call back when user tap on report button.
-  final VoidCallBack onReportTap;
+  final VoidCallBack onCopyTap;
 
   /// Provides call back when user tap on more button.
-  final VoidCallBack onMoreTap;
+  final VoidCallBack onDeleteTap;
 
   /// Allow user to set text style of button are showed in reply snack bar.
   final TextStyle? buttonTextStyle;
@@ -79,20 +79,28 @@ class ReplyPopupWidget extends StatelessWidget {
           ),
           if (sendByCurrentUser)
             InkWell(
-              onTap: onUnsendTap,
+              onTap: onUpdateTap,
               child: Text(
-                PackageStrings.unsend,
+                PackageStrings.updateTo,
                 style: textStyle,
               ),
             ),
           if (sendByCurrentUser) // 追加変更
             InkWell(
-              onTap: onMoreTap,
+              onTap: onDeleteTap,
               child: Text(
-                PackageStrings.more,
+                PackageStrings.delete,
                 style: textStyle,
               ),
             ),
+          InkWell(
+            // 追加変更
+            onTap: onCopyTap,
+            child: Text(
+              PackageStrings.copy,
+              style: textStyle,
+            ),
+          ),
         ],
       ),
     );
