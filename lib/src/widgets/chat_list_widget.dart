@@ -269,13 +269,15 @@ class _ChatListWidgetState extends State<ChatListWidget> with SingleTickerProvid
                         replyPopup?.onCopyTap!(message);
                       }
                     },
-                    onUpdateTap: () {
-                      _onChatListTap();
-                      if (replyPopup?.onUpdateTap != null) {
-                        replyPopup?.onUpdateTap!(message);
-                        widget.assignReplyMessage(message); // 追加変更
-                      }
-                    },
+                    onUpdateTap: !message.messageType.isImage
+                        ? () {
+                            _onChatListTap();
+                            if (replyPopup?.onUpdateTap != null) {
+                              replyPopup?.onUpdateTap!(message);
+                              widget.assignReplyMessage(message); // 追加変更
+                            }
+                          }
+                        : null,
                     onReplyTap: () {
                       widget.assignReplyMessage(message);
                       if (featureActiveConfig?.enableReactionPopup ?? false) {

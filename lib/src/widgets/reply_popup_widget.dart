@@ -26,10 +26,10 @@ import 'package:chatview/src/utils/package_strings.dart';
 import '../values/typedefs.dart';
 
 class ReplyPopupWidget extends StatelessWidget {
-  const ReplyPopupWidget({
+  ReplyPopupWidget({
     Key? key,
     required this.sendByCurrentUser,
-    required this.onUpdateTap,
+    this.onUpdateTap,
     required this.onReplyTap,
     required this.onCopyTap,
     required this.onDeleteTap,
@@ -41,7 +41,7 @@ class ReplyPopupWidget extends StatelessWidget {
   final bool sendByCurrentUser;
 
   /// Provides call back when user tap on unsend button.
-  final VoidCallBack onUpdateTap;
+  VoidCallBack? onUpdateTap;
 
   /// Provides call back when user tap on reply button.
   final VoidCallBack onReplyTap;
@@ -77,7 +77,7 @@ class ReplyPopupWidget extends StatelessWidget {
               style: textStyle,
             ),
           ),
-          if (sendByCurrentUser)
+          if (sendByCurrentUser && onUpdateTap != null)
             InkWell(
               onTap: onUpdateTap,
               child: Text(
