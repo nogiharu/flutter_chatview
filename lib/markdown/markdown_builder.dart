@@ -1,7 +1,6 @@
 import 'package:chatview/chatview.dart';
 import 'package:chatview/markdown/at_mention_paragraph_node.dart';
 import 'package:chatview/markdown/code_wrapper.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/config/configs.dart';
 import 'package:markdown_widget/config/markdown_generator.dart';

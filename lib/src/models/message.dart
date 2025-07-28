@@ -61,6 +61,8 @@ class Message {
 
   bool? isDeleted; // 追加変更
 
+  List<String>? readUserIds;
+
   Message({
     // this.id = '',　追加変更
     this.id,
@@ -75,6 +77,7 @@ class Message {
     this.chatRoomId, // 追加変更
     this.updatedAt, // 追加変更
     this.isDeleted, // 追加変更
+    this.readUserIds, // 追加変更
   })  : reaction = reaction ?? Reaction(reactions: [], reactedUserIds: []),
         key = GlobalKey(),
         _status = ValueNotifier(status),
