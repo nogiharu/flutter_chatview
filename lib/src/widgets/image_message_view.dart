@@ -69,21 +69,17 @@ class ImageMessageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment:
-          isMessageBySender ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisAlignment: isMessageBySender ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         if (isMessageBySender) iconButton,
         Stack(
           children: [
             GestureDetector(
-              onTap: () => imageMessageConfig?.onTap != null
-                  ? imageMessageConfig?.onTap!(imageUrl)
-                  : null,
+              onTap: () =>
+                  imageMessageConfig?.onTap != null ? imageMessageConfig?.onTap!(imageUrl) : null,
               child: Transform.scale(
                 scale: highlightImage ? highlightScale : 1.0,
-                alignment: isMessageBySender
-                    ? Alignment.centerRight
-                    : Alignment.centerLeft,
+                alignment: isMessageBySender ? Alignment.centerRight : Alignment.centerLeft,
                 child: Container(
                   padding: imageMessageConfig?.padding ?? EdgeInsets.zero,
                   margin: imageMessageConfig?.margin ??
@@ -96,8 +92,7 @@ class ImageMessageView extends StatelessWidget {
                   height: imageMessageConfig?.height ?? 200,
                   width: imageMessageConfig?.width ?? 150,
                   child: ClipRRect(
-                    borderRadius: imageMessageConfig?.borderRadius ??
-                        BorderRadius.circular(14),
+                    borderRadius: imageMessageConfig?.borderRadius ?? BorderRadius.circular(14),
                     child: (() {
                       if (imageUrl.isUrl) {
                         return Image.network(
@@ -105,21 +100,24 @@ class ImageMessageView extends StatelessWidget {
                           fit: BoxFit.fitHeight,
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) return child;
-                            return Center(
+                            // 追加変更
+                            return const Center(
                               child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes !=
-                                        null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                        loadingProgress.expectedTotalBytes!
-                                    : null,
-                              ),
+                                  // value: loadingProgress.expectedTotalBytes != null
+                                  //     ? loadingProgress.cumulativeBytesLoaded /
+                                  //         loadingProgress.expectedTotalBytes!
+                                  //     : null,
+                                  ),
                             );
+                          },
+                          // 追加変更
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Center(child: Text('画像を読み込めない(>_<)'));
                           },
                         );
                       } else if (imageUrl.fromMemory) {
                         return Image.memory(
-                          base64Decode(imageUrl
-                              .substring(imageUrl.indexOf('base64') + 7)),
+                          base64Decode(imageUrl.substring(imageUrl.indexOf('base64') + 7)),
                           fit: BoxFit.fill,
                         );
                       } else {
